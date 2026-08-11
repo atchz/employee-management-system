@@ -11,5 +11,6 @@ public class EmployeeDbContext : DbContext
 
     }
 
-    DbSet<Employee> Employees => Set<Employee>();
+    public DbSet<Employee> Employees => Set<Employee>();
+    public DbSet<Department> Departments => Set<Department>();
 }
