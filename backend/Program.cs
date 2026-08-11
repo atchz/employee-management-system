@@ -1,18 +1,16 @@
+using Empleados.Api.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-var app = builder.Build();
+var connString = builder.Configuration.GetConnectionString("EmployeeDb");
+builder.Services.AddDbContext<EmployeeDbContext>(options => options.UseSqlServer(connString));
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+
+var app = builder.Build();
 
 app.UseHttpsRedirection();
 
