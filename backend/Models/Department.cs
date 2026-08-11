@@ -9,4 +9,6 @@ public class Department
     public required string Name { get; set; }
 
     public required string Location { get; set; }
+
+    public ICollection<Employee> Employees { get; set; } = [];
 }

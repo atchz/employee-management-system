@@ -14,7 +14,9 @@ public class Employee
 
     public required string Cellphone { get; set; }
 
-    public required string Department { get; set; }
+    public int DepartmentId { get; set; }
+
+    public Department? Department { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -22,5 +24,5 @@ public class Employee
 
     public DateOnly HireDate { get; set; }
 
-    public required string Address { get; set; }
+    public required string Location { get; set; }
 }

@@ -9,7 +9,6 @@ builder.Services.AddOpenApi();
 var connString = builder.Configuration.GetConnectionString("EmployeeDb");
 builder.Services.AddDbContext<EmployeeDbContext>(options => options.UseSqlServer(connString));
 
-
 var app = builder.Build();
 
 app.UseHttpsRedirection();
