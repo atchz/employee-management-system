@@ -33,5 +33,25 @@ namespace Employees.Api.Controllers
             return Ok(employees);
         }
 
+        [HttpGet("{Id:int}")]
+        public async Task<ActionResult<EmployeeDto>> GetEmployee(int Id)
+        {
+            var employee = await _context.Employees.FindAsync(Id);
+
+            return employee is null ? NotFound() : Ok(new EmployeeDto(
+                employee.Id,
+                employee.Name,
+                employee.LastName,
+                employee.Email,
+                employee.Cellphone,
+                employee.DepartmentId,
+                employee.IsActive,
+                employee.Salary,
+                employee.HireDate,
+                employee.FireDate,
+                employee.Location
+
+            ));
+        }
     }
 }
