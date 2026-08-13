@@ -1,4 +1,4 @@
-using Empleados.Api.Data;
+using Employees.Api.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

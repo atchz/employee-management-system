@@ -1,16 +1,11 @@
 using System;
-using Empleados.Api.Models;
+using Employees.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Empleados.Api.Data;
+namespace Employees.Api.Data;
 
-public class EmployeeDbContext : DbContext
+public class EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : DbContext(options)
 {
-    public EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : base(options)
-    {
-
-    }
-
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Department> Departments => Set<Department>();
 

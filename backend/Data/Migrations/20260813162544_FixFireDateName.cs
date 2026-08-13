@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Empleados.Api.Data.Migrations
+namespace Employees.Api.Data.Migrations
 {
     /// <inheritdoc />
     public partial class FixFireDateName : Migration

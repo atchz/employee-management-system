@@ -1,6 +1,6 @@
 using System;
 
-namespace Empleados.Api.Models;
+namespace Employees.Api.Models;
 
 public class Employee
 {

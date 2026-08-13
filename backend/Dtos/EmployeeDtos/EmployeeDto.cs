@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Empleados.Api.Dtos.EmployeeDtos;
+namespace Employees.Api.Dtos.EmployeeDtos;
 
 public record EmployeeDto(
     int Id,
