@@ -11,6 +11,5 @@ public record CreateEmployeeDto(
     bool IsActive,
     [Range(1, 1000000)] decimal Salary,
     DateOnly HireDate,
-    DateOnly? FireDate,
     [Required][StringLength(300)] string Location
 );
