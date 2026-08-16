@@ -117,6 +117,24 @@ namespace Employees.Api.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> DeleteEmployee(int id)
+        {
+            var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Id == id);
+
+            if (employee is null)
+            {
+                return NotFound();
+            }
+
+            employee.IsActive = false;
+            employee.FireDate = DateOnly.FromDateTime(DateTime.Now);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
 
         }
 
