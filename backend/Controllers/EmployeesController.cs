@@ -34,8 +34,8 @@ namespace Employees.Api.Controllers
             return Ok(employees);
         }
 
-        [HttpGet("{id:long}")]
-        public async Task<ActionResult<EmployeeDto>> GetEmployee(long id)
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<EmployeeDto>> GetEmployee(int id)
         {
             var employee = await _context.Employees.FindAsync(id);
 
@@ -90,9 +90,36 @@ namespace Employees.Api.Controllers
                         employee.Location
                     );
 
-            return CreatedAtAction("GetEmployee", new { id = employee.Id }, newEmployeeDto);
+            return CreatedAtAction(nameof(GetEmployee), new { id = employee.Id }, newEmployeeDto);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<UpdateEmployeeDto>> UpdateEmployee(long id, UpdateEmployeeDto updateEmployeeDto)
+        {
+            var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Id == id);
+
+            if (employee is null)
+            {
+                return NotFound();
+            }
+
+            employee.Name = updateEmployeeDto.Name;
+            employee.LastName = updateEmployeeDto.LastName;
+            employee.Email = updateEmployeeDto.Email;
+            employee.Cellphone = updateEmployeeDto.Cellphone;
+            employee.DepartmentId = updateEmployeeDto.DepartmentId;
+            employee.IsActive = updateEmployeeDto.IsActive;
+            employee.Salary = updateEmployeeDto.Salary;
+            employee.HireDate = updateEmployeeDto.HireDate;
+            employee.FireDate = updateEmployeeDto.FireDate;
+            employee.Location = updateEmployeeDto.Location;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
 
         }
+
 
 
 
