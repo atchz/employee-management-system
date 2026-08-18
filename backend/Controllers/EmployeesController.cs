@@ -1,10 +1,9 @@
+using System.Runtime.InteropServices.JavaScript;
 using Employees.Api.Data;
 using Employees.Api.Dtos.EmployeeDtos;
 using Employees.Api.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 
 namespace Employees.Api.Controllers
 {
@@ -15,21 +14,30 @@ namespace Employees.Api.Controllers
         private readonly EmployeeDbContext _context = context;
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetEmployees()
+        public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetEmployees([FromQuery] EmployeeQueryParameters query)
         {
-            var employees = await _context.Employees.Select(e => new EmployeeDto(
-                e.Id,
-                e.Name,
-                e.LastName,
-                e.Email,
-                e.Cellphone,
-                e.DepartmentId,
-                e.IsActive,
-                e.Salary,
-                e.HireDate,
-                e.FireDate,
-                e.Location
-            )).ToListAsync();
+            query.Search = query.Search?.Trim().ToLower();
+
+            List<EmployeeDto> employees = await _context.Employees
+                .Where(e => query.Search == null ||
+                    e.Name.ToLower().Contains(query.Search) ||
+                    e.LastName.ToLower().Contains(query.Search) ||
+                    e.Email.ToLower().Contains(query.Search))
+                .Where(e => query.IsActive == null || e.IsActive == query.IsActive)
+                .Where(e => query.DepartmentId == null || e.DepartmentId == query.DepartmentId)
+                .Select(e => new EmployeeDto(
+                    e.Id,
+                    e.Name,
+                    e.LastName,
+                    e.Email,
+                    e.Cellphone,
+                    e.DepartmentId,
+                    e.IsActive,
+                    e.Salary,
+                    e.HireDate,
+                    e.FireDate,
+                    e.Location
+                )).ToListAsync();
 
             return Ok(employees);
         }

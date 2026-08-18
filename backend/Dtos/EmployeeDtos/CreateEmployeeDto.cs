@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Employees.Api.Dtos.EmployeeDtos;
 
-public record CreateEmployeeDto(
+public sealed record CreateEmployeeDto(
     [Required][StringLength(100)] string Name,
     [Required][StringLength(100)] string LastName,
     [Required][EmailAddress] string Email,

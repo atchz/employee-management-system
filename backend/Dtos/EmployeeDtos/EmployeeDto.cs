@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Employees.Api.Dtos.EmployeeDtos;
 
-public record EmployeeDto(
+public sealed record EmployeeDto(
     int Id,
     string Name,
     string LastName,
